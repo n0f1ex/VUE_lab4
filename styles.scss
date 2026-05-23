@@ -1,0 +1,162 @@
+// Переменные
+$primary-color: #8b6f9e;
+$bg-color: #e8e8e8;
+$text-color: #333;
+$white: #ffffff;
+$spacing: 20px;
+
+// Миксины
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin gray-box {
+    background-color: $bg-color;
+    width: 100%;
+}
+
+@mixin main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 $spacing;
+}
+
+@mixin text-center {
+    text-align: center;
+}
+
+// Сброс стилей
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: $text-color;
+    line-height: 1.6;
+}
+
+// Шапка
+.header {
+    @include text-center;
+    background-color: $white;
+    padding-top: $spacing;
+    @include main-container;
+
+    .logo {
+        font-size: 2.5rem;
+        margin-bottom: $spacing;
+        color: $text-color;
+    }
+
+    .navigation {
+        @include gray-box;
+        padding: $spacing * 1.5;
+
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: $spacing * 1.5;
+            flex-wrap: wrap;
+
+            .nav-item {
+                .nav-link {
+                    color: $primary-color;
+                    text-decoration: underline;
+                    font-size: 1.1rem;
+                    transition: color 0.3s ease;
+
+                    &:hover {
+                        color: darken($primary-color, 15%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Основной контент
+.main {
+    @include main-container;
+    padding-top: $spacing * 2;
+    padding-bottom: $spacing * 2;
+
+    .feature-section {
+        margin-bottom: $spacing * 2;
+
+        .feature-box {
+            @include gray-box;
+            @include flex-center;
+            min-height: 200px;
+            padding: $spacing * 3;
+
+            .feature-title {
+                font-size: 1.2rem;
+                font-weight: normal;
+            }
+        }
+    }
+
+    .columns-section {
+        .columns-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: $spacing;
+
+            @media (max-width: 768px) {
+                grid-template-columns: 1fr;
+            }
+
+            .column {
+                @include gray-box;
+                @include flex-center;
+                min-height: 200px;
+                padding: $spacing * 3;
+
+                .column-title {
+                    font-size: 1.1rem;
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+}
+
+// Подвал
+.footer {
+    @include main-container;
+    padding-bottom: $spacing;
+
+    .copyright {
+        @include gray-box;
+        @include text-center;
+        font-size: 1rem;
+        padding: $spacing;
+    }
+}
+
+// Секция с числами
+.numbers-section {
+    @include main-container;
+    margin-top: 20px;
+    padding-bottom: 20px;
+
+    .numbers-container {
+        span {
+            display: inline-block;
+            margin: 4px;
+            font-size: 1.2rem;
+
+            @for $n from 1 through 100 {
+                &:nth-child(#{$n}) {
+                    color: rgb($n, 256 - $n, 0);
+                }
+            }
+        }
+    }
+}
